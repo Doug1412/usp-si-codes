@@ -19,9 +19,11 @@ typedef struct {
     Vertices * lista;
 } Grafo;
 
-Grafo * inicializarLista(quantVertices);
-
-
-
+Grafo * inicializarLista(int quantVertices);
+void imprimirLista(Grafo *g);
+void liberarLista(Grafo *g);
+bool arestaExisteLista(Grafo *g, int v1, int v2);
+bool inserirArestaLista(Grafo *g, int v1, int v2);
+bool excluirArestaLista(Grafo *g, int v1, int v2);
 
 #endif // LISTAADJACENCIA_H

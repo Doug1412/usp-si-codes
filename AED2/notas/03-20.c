@@ -75,4 +75,3 @@ void dijkstra(Vertice *g, int i) {
 // grafo dirigido e aciclico
 
 // desenho de um grafo na lousa
-

@@ -10,7 +10,7 @@ Grafo * inicializarLista(int quantVertices) {
 
     grafo->lista = (Vertices *) malloc(quantVertices * sizeof(Vertices));
 
-    for(int i = 0; i < quantVertices;) {
+    for(int i = 0; i < quantVertices; i++) {
         grafo->lista[i].inicio = NULL; // inicia cada lista de adjacencia como vazia
     }
 
@@ -30,7 +30,22 @@ void imprimirLista(Grafo *g) {
 }
 
 void liberarLista(Grafo *g) {
-    No * g->lista->inicio;
+    if (g) {
+        // Liberando as arestas dos vertices
+        for(int i = 0; i < g->tamanho; i++){
+            No * atual = g->lista[i].inicio;
+            No * prox;
+            while(atual) {
+                prox = atual->prox;
+                free(atual);
+                atual = prox;
+            }
+        }
+    }
+    // Libera o vetor de Vertices
+    free(g->lista);
+    // Libera a estrutura do Grafo
+    free(g);
 }
 
 bool arestaExisteLista(Grafo *g, int v1, int v2) {
@@ -39,13 +54,17 @@ bool arestaExisteLista(Grafo *g, int v1, int v2) {
         if (p->adj == v2) {
             return true;
         }
-        p = p->adj;
+        p = p->prox;
     }
     return false;
 }
 
 bool inserirArestaLista(Grafo *g, int v1, int v2) {
-    if (arestaExisteLista) {
+    if (v1 < 0 || v1 > g->tamanho || v2 < 0 || v2 > g->tamanho) {
+        return false; // Vértices inválidos
+    }
+    
+    if (arestaExisteLista(g, v1, v2)) {
         return false;
     }
 

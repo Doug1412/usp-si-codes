@@ -67,7 +67,7 @@ int grauEntradaMatriz(Matriz *m, int v2) {
     return grau;
 }
 
-int grauEntradaMatriz(Matriz *m, int v1) {
+int grauSaidaMatriz(Matriz *m, int v1) {
     int grau = 0;
     for (int j = 0; j < m->tamanho; j++) {
         grau += m->valores[v1][j];
