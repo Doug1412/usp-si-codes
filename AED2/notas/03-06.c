@@ -75,8 +75,8 @@ void prof(Vertice *g, int i) {
 // Problema:
 // 1. Contar salas do tipo N (ITA)*
 // 2. Contar salas do tipo N alcançaveis a partir de i
-
 // * Instituição TRIVIAL de algoritmos
+
 typedef struct {
     No *primeiro;
     int flag;

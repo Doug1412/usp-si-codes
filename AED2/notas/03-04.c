@@ -67,7 +67,7 @@ Vertice * transposto(Vertice *g) {
     return gt;
 }
 
-// Exercicio: Fazer uma copia simples
+// Exercicio: Fazer uma copia simples sem transpor
 
 /* BUSCA EM PROFUNDIDADE 
 Criar um vetor de flags para saber quais já foram enconradas e visitadas
@@ -89,5 +89,5 @@ void prof(Vertice *g, int i) {
         }
         p = p->prox;
     }
-    g[i].flag = 2; //
+    g[i].flag = 2; // finalizado
 }
