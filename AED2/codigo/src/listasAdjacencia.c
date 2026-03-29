@@ -18,8 +18,8 @@ Grafo * inicializarLista(int quantVertices) {
 } 
 
 void imprimirLista(Grafo *g) {
-    for(int i = 0; i <= g->tamanho; i++) {
-        printf("%d", i);
+    for(int i = 0; i < g->tamanho; i++) {
+        printf("%d:", i);
         No *p = g->lista[i].inicio;
         while(p) {
             printf("  %d", p->adj);
@@ -101,3 +101,51 @@ bool excluirArestaLista(Grafo *g, int v1, int v2) {
     free(p);
     return true;
 }
+
+void zerarFlagsLista(Grafo *g) {
+    for(int i = 0; i < g->tamanho; i++) {
+        g->lista[i].flag = 0;
+    }
+}
+
+// Verificar se g1 é subgrafo de g2
+bool subgrafoLista(Grafo *g1, Grafo *g2) {
+    // Um subgrafo não pode ter mais vértices que o grafo original
+    if (g1->tamanho > g2->tamanho) {
+        printf("O grafo g1 é maior que o g2");
+        return false;
+    }
+
+    // Verifica se todas as arestas de g1 estão presentes em g2
+    for(int i = 0; i < g1->tamanho; i++) {
+        No *p = g1->lista[i].inicio;
+        while(p) {
+            // Se achar uma aresta de g1 que não está em g2 não é subgrafo
+            if(!arestaExisteLista(g2, i, p->adj)) {
+                printf("O grafo g2 não apresenta a aresta %d -> %d", i, p->adj);
+                return false;
+            }
+            p = p->prox;
+        }
+    }
+    return true;
+}
+
+// Criar grafo transposto
+Grafo * transpostoLista(Grafo *g){
+    Grafo *gT = inicializarLista(g->tamanho);
+
+    for(int i = 0; i < g->tamanho; i++) {
+        No *p = g->lista[i].inicio;
+        while(p) {
+            No *novo = (No *) malloc(sizeof(No));
+            novo->adj = i;
+            novo->prox = gT->lista[p->adj].inicio;
+            gT->lista[p->adj].inicio = novo;
+
+            p = p->prox;
+        }
+    }
+    return gT;
+}
+
