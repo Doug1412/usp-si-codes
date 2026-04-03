@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "listaAdjacencia.h"
+
 typedef struct {
     int **matriz;
     int *flags;
@@ -27,5 +29,8 @@ void zerarFlagsMatriz(GrafoM *m);
 // Funções Extras
 bool subgrafoMatriz(GrafoM *m1, GrafoM *m2);
 GrafoM *transpostoMatriz(GrafoM *m);
+
+// Função que converte Matriz em Lista de Adjacência, aula do dia 06-03-2026
+GrafoM * listaParaMatriz(GrafoL *gL);
 
 #endif // MATRIZADJACENCIA_H

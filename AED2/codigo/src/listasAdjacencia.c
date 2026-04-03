@@ -151,3 +151,19 @@ GrafoL * transpostoLista(GrafoL *g){
     return gT;
 }
 
+// Função que converte Matriz em Lista de Adjacência
+GrafoL * matrizParaLista(GrafoM *gM) {
+    GrafoL * gL = inicializarLista(gM->totalVertices);
+    
+    for(int i = 0; i < gM->totalVertices;  i++) {
+        for(int j = 0; j < gM->totalVertices;  j++){
+            if (gM->matriz[i][j] == 1) {
+                No *novo = (No *) malloc(sizeof(No));
+                novo->adj = j;
+                novo->prox = gL->vertices[i].inicio;
+                gL->vertices[i].inicio = novo;
+            }
+        }
+    }
+    return gL;
+}

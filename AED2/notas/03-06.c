@@ -106,7 +106,7 @@ Vertice * matrizParaLista(int m[V][V]){
     int i, j;
     for(i = 1; i < V; i++){
         for(j = 1; j < V; j++){
-            if(m[i][i] == 1) {
+            if(m[i][j] == 1) {
                 No * novo = (No *) malloc(sizeof(No));
                 novo->adj = j;
                 novo->prox = g[i].inicio;

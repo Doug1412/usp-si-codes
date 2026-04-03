@@ -133,3 +133,18 @@ GrafoM *transpostoMatriz(GrafoM *m) {
 
     return mT;
 }
+
+// Função que converte Lista em Matriz de Adjacência,
+GrafoM * listaParaMatriz(GrafoL *gL) {
+    GrafoM * gM = inicializarMatriz(gL->quantVertices);
+    
+    for(int i = 0; i < gL->quantVertices; i++) {
+        No *p = gL->vertices[i].inicio;
+        while(p) {
+            gM->matriz[i][p->adj]  = 1;
+            p = p->prox;
+        }
+    }
+
+    return gM;
+}
