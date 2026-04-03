@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "matrizAdjacencia.h";
+#include "matrizAdjacencia.h"
 
-void buscaProfMatriz(Matriz *m, int i);
+void buscaProfMatriz(GrafoM *m, int i);
 
 #endif // MATRIZLISTA_H

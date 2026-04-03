@@ -6,26 +6,26 @@
 #include <stdbool.h>
 
 typedef struct {
-    int **valores;
+    int **matriz;
     int *flags;
-    int tamanho;
-} Matriz;
+    int totalVertices;
+} GrafoM;
 
-Matriz * inicializarMatriz(int quantidadeVertices);
+GrafoM * inicializarMatriz(int quantidadeVertices);
 
 // Funções bases
-void imprimirMatriz(Matriz *m);
-void liberarMatriz(Matriz *m);
-bool arestaExisteMatriz(Matriz *m, int v1, int v2);
-void inserirArestaMatriz(Matriz *m, int v1, int v2);
-bool excluirArestaMatriz(Matriz *m, int v1, int v2);
-int grauEntradaMatriz(Matriz *m, int v2);
-int grauSaidaMatriz(Matriz *m, int v1);
+void imprimirMatriz(GrafoM *m);
+void liberarMatriz(GrafoM *m);
+bool arestaExisteMatriz(GrafoM *m, int v1, int v2);
+void inserirArestaMatriz(GrafoM *m, int v1, int v2);
+bool excluirArestaMatriz(GrafoM *m, int v1, int v2);
+int grauEntradaMatriz(GrafoM *m, int v2);
+int grauSaidaMatriz(GrafoM *m, int v1);
 
-void zerarFlagsMatriz(Matriz *m);
+void zerarFlagsMatriz(GrafoM *m);
 
 // Funções Extras
-bool subgrafoMatriz(Matriz *m1, Matriz *m2);
-Matriz *transpostoMatriz(Matriz *m);
+bool subgrafoMatriz(GrafoM *m1, GrafoM *m2);
+GrafoM *transpostoMatriz(GrafoM *m);
 
 #endif // MATRIZADJACENCIA_H

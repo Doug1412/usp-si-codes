@@ -13,28 +13,28 @@ typedef struct s{
 typedef struct {
     No *inicio;
     int flag; // 0 = Não visitado, 1 = visitando, 2 = finalizado
-} Vertices;
+} Vertice;
 
 typedef struct {
-    int tamanho;
-    Vertices * lista;
-} Grafo;
+    int quantVertices;
+    Vertice * vertices;
+} GrafoL;
 
 // Funções bases
-Grafo * inicializarLista(int quantVertices);
-void imprimirLista(Grafo *g);
-void liberarLista(Grafo *g);
-bool arestaExisteLista(Grafo *g, int v1, int v2);
-bool inserirArestaLista(Grafo *g, int v1, int v2);
-bool excluirArestaLista(Grafo *g, int v1, int v2);
+GrafoL * inicializarLista(int quantVertices);
+void imprimirLista(GrafoL *g);
+void liberarLista(GrafoL *g);
+bool arestaExisteLista(GrafoL *g, int v1, int v2);
+bool inserirArestaLista(GrafoL *g, int v1, int v2);
+bool excluirArestaLista(GrafoL *g, int v1, int v2);
 
-void zerarFlagsLista(Grafo *g);
+void zerarFlagsLista(GrafoL *g);
 
 // Funções extras
-bool subgrafoLista(Grafo *g1, Grafo *g2);
-Grafo * transpostoLista(Grafo *g);
+bool subgrafoLista(GrafoL *g1, GrafoL *g2);
+GrafoL * transpostoLista(GrafoL *g);
 
 //Buscas
-void buscaProfLista(Grafo *g, int i); 
+void buscaProfLista(GrafoL *g, int i); 
 
 #endif // LISTAADJACENCIA_H
