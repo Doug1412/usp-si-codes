@@ -17,6 +17,6 @@ bool dfsCaminhoLista(GrafoL *g, int i, int j);
 void dfsCicloLista(GrafoL *g, int i);
 
 // Contar quantas salas do tipo N alcançaveis a partir de i, aula do dia 06-03-2026
-void contarSalarTipoLista(GrafoL *g, int i, int N, int *cont);
+void contarSalasTipoLista(GrafoL *g, int i, int N, int *cont);
 
 #endif // BUSCASLISTA_H

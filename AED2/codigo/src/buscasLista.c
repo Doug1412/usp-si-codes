@@ -79,7 +79,7 @@ void dfsCicloLista(GrafoL *g, int i) {
 }
 
 // Contar quantas salas do tipo N alcançaveis a partir de i
-void contarSalarTipoLista(GrafoL *g, int i, int N, int *cont) {
+void contarSalasTipoLista(GrafoL *g, int i, int N, int *cont) {
     // rodar zerarFlagsLista(g) antes
     if (g->vertices[i].tipo == N) {
         *cont = *cont + 1;

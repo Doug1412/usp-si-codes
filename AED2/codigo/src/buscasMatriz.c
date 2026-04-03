@@ -52,7 +52,7 @@ void dfsCicloMatriz(GrafoM *g, int i) {
 }
 
 // INCOMPLETA: Contar quantas salas do tipo N alcançaveis a partir de i
-void contarSalarTipoMtriz(GrafoM *g, int i, int N, int *cont) {
+void contarSalasTipoMtriz(GrafoM *g, int i, int N, int *cont) {
     // rodar zerarFlagsMatriz(g) antes
     
     // TODO: implementar essa função, não fiz porque teria que alterar a estrutura da matriz
