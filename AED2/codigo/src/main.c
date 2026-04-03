@@ -5,8 +5,8 @@
 #include "matrizAdjacencia.h"
 #include "listaAdjacencia.h"
 
-#include "buscaMatriz.h"
-#include "buscaLista.h"
+#include "buscasMatriz.h"
+#include "buscasLista.h"
 
 void testeMatriz();
 void testeLista();

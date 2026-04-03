@@ -13,6 +13,7 @@ typedef struct s{
 typedef struct {
     No *inicio;
     int flag; // 0 = Não visitado, 1 = visitando, 2 = finalizado
+    int tipo; // aula do dia 06-03-2026
 } Vertice;
 
 typedef struct {
@@ -34,7 +35,6 @@ void zerarFlagsLista(GrafoL *g);
 bool subgrafoLista(GrafoL *g1, GrafoL *g2);
 GrafoL * transpostoLista(GrafoL *g);
 
-//Buscas
-void buscaProfLista(GrafoL *g, int i); 
+//TODO: impletar função que converte Matriz em Lista de Adjacência, aula do dia 06-03-2026
 
 #endif // LISTAADJACENCIA_H

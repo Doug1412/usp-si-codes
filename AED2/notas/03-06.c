@@ -92,7 +92,7 @@ void prof(Vertice *g, int i, int n, int *cont){
     No *p = g[i].inicio;
     while(p) {
         if(g[p->adj].flag == 0){
-            prof(g, p->adj)
+            prof(g, p->adj, n, cont)
         }
         p = p->prox;
     }
