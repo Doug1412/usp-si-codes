@@ -10,6 +10,8 @@
 typedef struct {
     int **matriz;
     int *flags;
+    int *tipos; // Aula 13-03-2026
+    int *dist; // Aula 13-03-2026
     int totalVertices;
 } GrafoM;
 

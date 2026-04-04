@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #include "listaAdjacencia.h"
+#include "fila.h"
 
 // ---------------------------- BUSCAS EM PROFUNDIDADE ----------------------------
 
@@ -40,5 +41,13 @@ void dfsExibirNLista(GrafoL * g, int i, int *N, int tipoX);
 
 // ---------------------------- BUSCAS EM LARGURA ---------------------------------
 
+// Busca em largura simples começando em i. Aula do dia 13-03-2026
+void bfsLista(GrafoL *g, int i);
+
+// Encontrar o posto de gasolina mais próximo, tipo = 1.
+int tipoXmaisPertoLista(GrafoL *g, int i, int tipoX);
+
+// Qual o comprimento do caminho mais curto de v1 a v2? Aula do dia 13-03-2026
+int comprimentoLista(GrafoL *g, int v1, int v2);
 
 #endif // BUSCASLISTA_H

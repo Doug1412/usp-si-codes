@@ -17,6 +17,7 @@ typedef struct {
     No *inicio;
     int flag; // 0 = Não visitado, 1 = visitando, 2 = finalizado
     int tipo; // aula do dia 06-03-2026
+    int dist; // distancia: aula do dia 13-03-2026
 } Vertice;
 
 typedef struct {

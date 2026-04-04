@@ -196,3 +196,105 @@ void dfsExibirNLista(GrafoL * g, int i, int *N, int tipoX) {
 
     g->vertices[i].flag = 2;
 }
+
+// ---------------------------- BUSCAS EM LARGURA ---------------------------------
+
+// Busca em largura simples começando em i.
+void bfsLista(GrafoL *g, int i) {
+    zerarFlagsLista(g);
+
+    Fila F; 
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->vertices[i].flag = 1;
+
+    while(F.inicio) {
+        i = sairFila(&F);
+        No *p = g->vertices[i].inicio;
+        while(p) {
+            if (g->vertices[p->adj].flag == 0) {
+                g->vertices[p->adj].flag = 1;
+                entrarFila(&F, p->adj);
+            }
+            p = p->prox;
+        }
+        g->vertices[i].flag = 2;
+    }
+}
+
+// Encontrar o posto de gasolina mais próximo, tipo = 1
+int tipoXmaisPertoLista(GrafoL *g, int i, int tipoX) {
+    zerarFlagsLista(g);
+
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->vertices[i].flag = 1;
+
+    while(F.inicio) {
+        i = sairFila(&F);
+        No *p = g->vertices[i].inicio;
+
+        if (g->vertices[i].tipo == tipoX) {
+            while(F.fim) {
+                sairFila(&F);
+            }
+            return i;
+        }
+
+        while(p) {
+            if (g->vertices[p->adj].flag == 0) {
+                g->vertices[p->adj].flag = 1;
+                entrarFila(&F, p->adj);
+            }
+            p = p->prox;
+        }
+        g->vertices[i].flag = 2;
+    }
+    return -1;
+}
+
+// Qual o comprimento do caminho mais curto de v1 a v2?
+int comprimentoLista(GrafoL *g, int v1, int v2) {
+    zerarFlagsLista(g);
+
+    for (int i = 0; i < g->quantVertices; i++) {
+        if (i == v1) {
+            g->vertices[i].dist = 0;
+        } else {
+            g->vertices[i].dist = 999999;
+        }
+    }
+
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, v1);
+    g->vertices[v1].flag = 1;
+
+    while(F.inicio) {
+        int v = sairFila(&F);
+
+        if (v == v2) {
+            while(F.fim){
+                sairFila(&F);
+            }
+            return g->vertices[v].dist;
+        }
+
+        No *p = g->vertices[v].inicio;
+        while(p) {
+            if (g->vertices[p->adj].flag == 0) {
+                entrarFila(&F, p->adj);
+                g->vertices[p->adj].dist = g->vertices[v].dist + 1;
+                g->vertices[p->adj].flag = 1;
+            }
+            p = p->prox;
+        }
+
+        g->vertices[v].flag = 2;
+    }
+    return -1;
+}

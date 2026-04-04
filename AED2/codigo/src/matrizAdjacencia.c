@@ -9,8 +9,12 @@ GrafoM * inicializarMatriz(int quantidadeVertices) {
     m->totalVertices = quantidadeVertices;
     
     m->flags = (int *) malloc(m->totalVertices * sizeof(int));
+    m->tipos = (int *) malloc(m->totalVertices * sizeof(int));
+    m->dist = (int *) malloc(m->totalVertices * sizeof(int));
     for (int i = 0; i < m->totalVertices; i++) {
         m->flags[i] = 0;
+        m->tipos[i] = 0;
+        m->dist[i] = 0;
     }
 
     m->matriz = (int **) malloc(m->totalVertices * sizeof(int *));
@@ -44,7 +48,13 @@ void liberarMatriz(GrafoM *m) {
     // 3. Libera o array de flags
     free(m->flags);
     
-    // 4. Libera a struct principal
+    // 4. Libera o array de tipos
+    free(m->tipos);
+
+    // 5. Libera o array de distancias
+    free(m->dist);
+
+    // 6. Libera a struct principal
     free(m);
 }
 

@@ -6,6 +6,7 @@
 #include <stdbool.h>
 
 #include "matrizAdjacencia.h"
+#include "fila.h"
 
 // ---------------------------- BUSCAS EM PROFUNDIDADE ----------------------------
 
@@ -37,6 +38,13 @@ void dfsExibirNMatriz(GrafoM * g, int i, int *N, int tipoX);
 
 // ---------------------------- BUSCAS EM LARGURA ---------------------------------
 
+// Busca em largura simples começando em i. Aula do dia 13-03-2026
+void bfsMatriz(GrafoM *g, int i);
 
+// Encontrar o posto de gasolina mais próximo, tipo = 1. Aula do dia 13-03-2026
+int tipoXmaisPertoMatriz(GrafoM *g, int i, int tipoX);
+
+// Qual o comprimento do caminho mais curto de v1 a v2?
+int comprimentoMatriz(GrafoM *g, int v1, int v2);
 
 #endif // MATRIZLISTA_H

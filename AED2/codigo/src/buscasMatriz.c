@@ -86,3 +86,99 @@ void ligarNaoAlcancaveisMatriz(GrafoM *g, int i){
 void dfsExibirNMatriz(GrafoM * g, int i, int *N, int tipoX){
     // TODO: implementar essa função, não fiz porque teria que alterar a estrutura da matriz
 }
+
+// ---------------------------- BUSCAS EM LARGURA ---------------------------------
+
+// Busca em largura simples começando em i. Aula do dia 13-03-2026
+void bfsMatriz(GrafoM *g, int i) {
+    zerarFlagsMatriz(g);
+    
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->flags[i] = 1;
+
+    while(F.inicio) {
+        i = sairFila(&F);
+        for (int j = 0; j < g->totalVertices; j++) {
+            if (g->matriz[i][j] == 1 && g->flags[j] == 0) {
+                g->flags[j] = 1;
+                entrarFila(&F, j);
+            }
+        }
+        g->flags[i] = 2;
+    }
+}
+
+// Encontrar o posto de gasolina mais próximo, tipo = 1
+int tipoXmaisPertoMatriz(GrafoM *g, int i, int tipoX) {
+    zerarFlagsLista(g);
+
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->flags[i] = 1;
+
+    while(F.inicio) {
+        i = sairFila(&F);
+
+        if (g->tipos[i] == tipoX) {
+            while(F.fim) {
+                sairFila(&F);
+            }
+            return i;
+        }
+
+        for (int j = 0; j < g->totalVertices; j++) {
+            if (g->matriz[i][j] == 1 && g->flags[j] == 0) {
+                g->flags[j] = 1;
+                entrarFila(&F, j);
+            }
+        }
+        g->flags[i] = 2;
+    }
+    return -1;
+}
+
+// Qual o comprimento do caminho mais curto de v1 a v2?
+int comprimentoMatriz(GrafoM *g, int v1, int v2) {
+    zerarFlagsMatriz(g);
+
+    for (int k = 0; k < g->totalVertices; k++) {
+        if (k == v1) {
+            g->dist[k] = 0;
+        } else {
+            g->dist[k] = 999999;
+        }
+    }
+
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, v1);
+    g->flags[v1] = 1;
+
+    while(F.inicio) {
+        int i = sairFila(&F);
+
+        if (i == v2) {
+            while(F.fim) {
+                sairFila(&F);
+            }
+            return g->dist[i];
+        }
+
+        for (int j = 0; j < g->totalVertices; j++) {
+            if (g->matriz[i][j] == 1 && g->flags[j] == 0) {
+                g->flags[j] = 1;
+                g->tipos[j] = g->dist[i] + 1;
+                entrarFila(&F, j);
+            }
+        }
+        g->flags[i] = 2;
+    }
+
+    return -1;
+}
