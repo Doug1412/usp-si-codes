@@ -7,6 +7,9 @@
 
 #include "matrizAdjacencia.h"
 
+// ---------------------------- BUSCAS EM PROFUNDIDADE ----------------------------
+
+
 // Busca em profundidade simples começando em i, aula do dia 06-03-2026
 void dfsMatriz(GrafoM *m, int i);
 
@@ -17,6 +20,23 @@ bool dfsCaminhoMatriz(GrafoM *g, int i, int j);
 void dfsCicloMatriz(GrafoM *g, int i);
 
 // INCOMPLETA: Contar quantas salas do tipo N alcançaveis a partir de i, aula do dia 06-03-2026
-void contarSalasTipoMtriz(GrafoM *g, int i, int N, int *cont);
+void contarSalasTipoMatriz(GrafoM *g, int i, int N, int *cont);
+
+// Verificar se há rota de I até F usando apenas a companhia X. 
+bool dfsViagemAviaoCompanhiaMatriz(GrafoM * g, int i, int F, int X);
+
+// Verificar se há um caminho de I até F passando por M.
+// Variação de dfsViagemAviaoCompanhia()
+bool viagemAviaoCompanhiaIaMaFMatriz(GrafoM *g, int I, int M, int F, int X);
+
+// Encontrar vetices não alcançaveis a partir de I e liga-los a I. Aula do dia 11-03-2026
+void ligarNaoAlcancaveisMatriz(GrafoM *g, int i);
+
+// Exibir até N salas do tipo X alcançaveis a partir de I.
+void dfsExibirNMatriz(GrafoM * g, int i, int *N, int tipoX);
+
+// ---------------------------- BUSCAS EM LARGURA ---------------------------------
+
+
 
 #endif // MATRIZLISTA_H

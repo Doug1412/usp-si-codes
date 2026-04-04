@@ -52,8 +52,37 @@ void dfsCicloMatriz(GrafoM *g, int i) {
 }
 
 // INCOMPLETA: Contar quantas salas do tipo N alcançaveis a partir de i
-void contarSalasTipoMtriz(GrafoM *g, int i, int N, int *cont) {
+void contarSalasTipoMatriz(GrafoM *g, int i, int N, int *cont) {
     // rodar zerarFlagsMatriz(g) antes
     
+    // TODO: implementar essa função, não fiz porque teria que alterar a estrutura da matriz
+}
+
+// Verificar se há rota de I até F usando apenas a companhia X. 
+bool dfsViagemAviaoCompanhiaMatriz(GrafoM * g, int i, int F, int X) {
+    // TODO: implementar essa função, não fiz porque teria que alterar a estrutura da matriz
+}
+
+// Verificar se há um caminho de I até F passando por M.
+// Variação de dfsViagemAviaoCompanhia()
+bool viagemAviaoCompanhiaIaMaFMatriz(GrafoM *g, int I, int M, int F, int X){ 
+    // TODO: implementar essa função, não fiz porque depende da função anterior
+}
+
+// Encontrar vetices não alcançaveis a partir de I e liga-los a I. Aula do dia 11-03-2026
+void ligarNaoAlcancaveisMatriz(GrafoM *g, int i){
+    zerarFlagsMatriz(g);
+
+    dfsMatriz(g, i);
+
+    for(int j = 0; j < g->totalVertices; j++) {
+        if(g->flags[j] == 0) {
+            g->matriz[i][j] = 1;
+        }
+    }
+}
+
+// Exibir até N salas do tipo X alcançaveis a partir de I.
+void dfsExibirNMatriz(GrafoM * g, int i, int *N, int tipoX){
     // TODO: implementar essa função, não fiz porque teria que alterar a estrutura da matriz
 }
