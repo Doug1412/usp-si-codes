@@ -50,4 +50,9 @@ int tipoXmaisPertoLista(GrafoL *g, int i, int tipoX);
 // Qual o comprimento do caminho mais curto de v1 a v2? Aula do dia 13-03-2026
 int comprimentoLista(GrafoL *g, int v1, int v2);
 
+// Criar uma lista de todos os elementos em um raio N a partir de i. Aula do dia 18-03-2026
+No * verticesRaioLista(GrafoL * g, int i, int N); 
+// Variação considerando apenas arestas de peso < 10 e evitando passar por vertices do tipo X
+No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX); 
+
 #endif // BUSCASLISTA_H

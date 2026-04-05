@@ -10,6 +10,7 @@
 typedef struct s{
     int adj;
     int tipo; // aula do dia 11-03-2026
+    int peso;
     struct s* prox;
 } No;
 

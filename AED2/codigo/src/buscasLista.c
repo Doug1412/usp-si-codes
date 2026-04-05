@@ -298,3 +298,89 @@ int comprimentoLista(GrafoL *g, int v1, int v2) {
     }
     return -1;
 }
+
+// Criar uma lista de todos os elementos em um raio N a partir de i
+No * verticesRaioLista(GrafoL * g, int i, int N) {
+    zerarFlagsLista(g);
+
+    for (int k = 0; k < g->quantVertices; k++) {
+        if (i == k) {
+            g->vertices[k].dist = 0;
+        } else {
+            g->vertices[k].dist = 999999;
+        }
+    }
+
+    No* resp = NULL;
+
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->vertices[i].flag = 1;
+
+    while(F.inicio) {
+        int v = sairFila(&F);
+        if (g->vertices[v].dist < N) {
+            No *p = g->vertices[v].inicio;
+            while(p){
+                if (g->vertices[p->adj].flag == 0) {
+                    g->vertices[p->adj].dist = g->vertices[v].dist + 1;
+                    g->vertices[p->adj].flag = 1;
+                    entrarFila(&F, p->adj);
+                }
+                p = p->prox;
+            }
+        }
+        g->vertices[v].flag = 2;
+        No *novo = (No *) malloc(sizeof(No));
+        novo->adj = v;
+        novo->prox = resp;
+        resp = novo;
+    }
+
+    return resp;
+}
+
+// Variação considerando apenas arestas de peso < 10 e evitando passar por vertices do tipo X
+No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX) {
+    zerarFlagsLista(g);
+
+    for (int k = 0; k < g->quantVertices; k++) {
+        if (i == k) {
+            g->vertices[k].dist = 0;
+        } else {
+            g->vertices[k].dist = 999999;
+        }
+    }
+
+    No* resp = NULL;
+
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->vertices[i].flag = 1;
+
+    while(F.inicio) {
+        int v = sairFila(&F);
+        if (g->vertices[v].dist < N) {
+            No *p = g->vertices[v].inicio;
+            while(p){
+                if (g->vertices[p->adj].flag == 0) {
+                    g->vertices[p->adj].dist = g->vertices[v].dist + 1;
+                    g->vertices[p->adj].flag = 1;
+                    entrarFila(&F, p->adj);
+                }
+                p = p->prox;
+            }
+        }
+        g->vertices[v].flag = 2;
+        No *novo = (No *) malloc(sizeof(No));
+        novo->adj = v;
+        novo->prox = resp;
+        resp = novo;
+    }
+
+    return resp;
+}
