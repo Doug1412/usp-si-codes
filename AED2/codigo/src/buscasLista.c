@@ -346,6 +346,10 @@ No * verticesRaioLista(GrafoL * g, int i, int N) {
 No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX) {
     zerarFlagsLista(g);
 
+    if (g->vertices[i].tipo == tipoX) {
+        return NULL;
+    }
+
     for (int k = 0; k < g->quantVertices; k++) {
         if (i == k) {
             g->vertices[k].dist = 0;
@@ -364,10 +368,11 @@ No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX) {
 
     while(F.inicio) {
         int v = sairFila(&F);
+        
         if (g->vertices[v].dist < N) {
             No *p = g->vertices[v].inicio;
             while(p){
-                if (g->vertices[p->adj].flag == 0) {
+                if (g->vertices[p->adj].flag == 0 && p->peso < 10 && g->vertices[i].tipo != tipoX) {
                     g->vertices[p->adj].dist = g->vertices[v].dist + 1;
                     g->vertices[p->adj].flag = 1;
                     entrarFila(&F, p->adj);
@@ -375,6 +380,7 @@ No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX) {
                 p = p->prox;
             }
         }
+        
         g->vertices[v].flag = 2;
         No *novo = (No *) malloc(sizeof(No));
         novo->adj = v;
@@ -383,4 +389,37 @@ No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX) {
     }
 
     return resp;
+}
+
+// Custo total de uma viagem, considere dist = custo
+void custoTotalLista(GrafoL * g, int i) {
+    zerarFlagsLista(g);
+
+    for (int k = 0; k < g->quantVertices; k++) {
+        if (i == k) {
+            g->vertices[k].dist = 0;
+        } else {
+            g->vertices[k].dist = 999999;
+        }
+    }
+
+    Fila F;
+    inicializarFila(&F);
+
+    g->vertices[i].flag = 1;
+    entrarFila(&F, i);
+
+    while(F.inicio) {
+        int v = sairFila(&F);
+        No *p = g->vertices[v].inicio;
+        while(p) {
+            if (g->vertices[p->adj].flag == 0) {
+                g->vertices[p->adj].flag = 1;
+                entrarFila(&F, p->adj);
+                g->vertices[p->adj].dist = g->vertices[v].dist + g->vertices[p->adj].dist;
+            }
+            p = p->prox;
+        }
+        g->vertices[v].flag = 2;
+    }
 }
