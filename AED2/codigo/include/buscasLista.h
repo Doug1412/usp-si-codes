@@ -55,4 +55,7 @@ No * verticesRaioLista(GrafoL * g, int i, int N);
 // Variação considerando apenas arestas de peso < 10 e evitando passar por vertices do tipo X
 No * verticesRaioLista2(GrafoL * g, int i, int N, int tipoX); 
 
+// Custo total de uma viagem, considere dist = custo. Aula 18-03-2026
+void custoTotalLista(GrafoL * g, int i);
+
 #endif // BUSCASLISTA_H

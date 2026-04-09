@@ -3,9 +3,9 @@
 
 #include <stdbool.h>
 
-typedef struct s {
+typedef struct n {
 	int valor;
-	struct s *prox;
+	struct n *prox;
 } NoFila;
 
 typedef struct {

@@ -105,7 +105,7 @@ int maiorInicioLista(GrafoL *g) {
     for(int i = 0; i < g->quantVertices; i++) {
         int cont = 0;
         if (g->vertices[i].flag == 0) {
-            dfsContLista(g, i, &cont); 
+            // dfsContLista(g, i, &cont); 
             // função acima não implementada, mas ela é identica a dfsLista(), com a difença de que roda `*cont = *cont + 1;` após marcar uma flag = 1;
         }
         if (cont > maiorQuant) {
@@ -143,9 +143,9 @@ bool dfsViagemAviaoCompanhiaLista(GrafoL * g, int i, int F, int X) {
 bool viagemAviaoCompanhiaIaMaFLista(GrafoL *g, int I, int M, int F, int X) {
     zerarFlagsLista(g);
 
-    if(dfsViagemAviaoCompanhia(g, I, M, X)) {
+    if(dfsViagemAviaoCompanhiaLista(g, I, M, X)) {
         zerarFlagsLista(g);
-        if(dfsViagemAviaoCompanhia(g, M, F, X)) {
+        if(dfsViagemAviaoCompanhiaLista(g, M, F, X)) {
             return true;
         } else {
             printf("Não existe M->F");
