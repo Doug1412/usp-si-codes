@@ -501,3 +501,156 @@ bool ex18dfs(GrafoL *g, int a, int b) {
     g->vertices[a].flag = 2;
     return false;
 }
+
+// 19. Um grafo não dirigido é completo se todos seus vértices são adjacentes, ou seja, existe uma aresta conectando cada par de vértices de um grafo. Escreva um algoritmo que, dado um grafo simples g, verifique se g é completo, retornando true/false conforme o caso.
+bool exercicio19(GrafoL *g) {
+    int *caderninho;
+    caderninho = (int *) malloc(g->quantVertices * sizeof(int));
+    
+    for (int i = 0; i < g->quantVertices; i++) {
+        for (int k = 0; k < g->quantVertices; k++) {
+            caderninho[k] = 0;
+        }
+
+        No *p = g->vertices[i].inicio;
+
+        while(p) {
+            caderninho[p->adj] = 1;
+            p = p->prox;
+        }
+
+        for (int k = 0; k < g->quantVertices; k++) {
+            if (caderninho[k] == 0 && k != i) {
+                free(caderninho);
+                return false;
+            }
+        }
+    }
+    free(caderninho);
+    return true;
+}
+
+bool exercicio19v2(GrafoL *g) {
+    for (int i = 0; i < g->quantVertices; i++) {
+        int grau = 0;
+
+        No *p = g->vertices[i].inicio;
+
+        while(p) {
+            grau++;
+            p = p->prox;
+        }
+
+        if (grau != (g->quantVertices - 1)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+// 20. Seja G = (V;A) um grafo simples e Ḡ= (V; V2-A) seu complemento, onde V2 é o conjunto de todos os pares de vértices em V . Escreva um método que, dado um grafo simples G, retorne seu complemento Ḡ.
+GrafoL * exercicio20(GrafoL * g) {
+    // Vertice *gC = (Vertice *) malloc(V * siozeof(Vertice));
+    GrafoL *gC = inicializarLista(g->quantVertices);
+    int *caderninho = (int *) malloc(g->quantVertices * sizeof(int));
+
+    for (int i = 0; i < g->quantVertices; i++) {
+        caderninho[i] = -1;
+    }
+
+    for (int i = 0; i < g->quantVertices; i++) {
+        No *p = g->vertices[i].inicio;
+        while(p) {
+            caderninho[p->adj] = i;
+            p = p->prox;
+        }
+
+         for (int k = 0; k < g->quantVertices; k++) {
+            if (caderninho[k] != i && i != k) {
+                No *novo = (No *) malloc(sizeof(No));
+                novo->adj = k;
+                novo->prox = gC->vertices[i].inicio;
+                gC->vertices[i].inicio = novo;
+            }
+         }
+    }
+    free(caderninho);
+    return gC;
+}
+
+// 21. Seja um grafo g representando salas de aula (vértices) e suas ligações (arestas). Cada sala possui uma ocupação representada por um inteiro. Escreva um algoritmo que, a partir da sala atual i, encontre a sala vazia mais próxima, retornando o número do vértice correspondente. Havendo mais de uma sala que atenda estas condições, retorne a primeira que encontrar.
+int exercicio21(GrafoL *g, int i, int tipoSala) {
+    zerarFlagsLista(g);
+    
+    Fila F;
+    inicializarFila(&F);
+
+    entrarFila(&F, i);
+    g->vertices[i].flag = 1;
+    while(F.inicio) {
+        int v = sairFila(&F);
+
+        No * p = g->vertices[v].inicio;
+        while (p) {
+            if (g->vertices[p->adj].flag == 0) {
+                // sair cedo, se já encontrou finaliza logo o programa
+                if (g->vertices[p->adj].tipo == tipoSala) { // considerar .tipo = .ocupacao
+                    while(F.fim) {
+                        sairFila(&F);
+                    }
+                    return p->adj;
+                }
+
+                g->vertices[p->adj].flag = 1;
+                entrarFila(&F, p->adj);
+            }
+            p = p->prox;
+        }
+        g->vertices[v].flag = 2;
+    }
+    return -1;
+}
+
+// 22. Variação: havendo empate, retorne uma lista ligada contendo todas as salas vazias mais próximas.
+No * exercicio22(GrafoL *g, int i, int tipoSala) {
+    zerarFlagsLista(g);
+
+    Fila f;
+    inicializarFila(&f);
+
+    entrarFila(&f, i);
+    g->vertices[i].flag = 1;
+
+    No *resultado = NULL;
+
+    while(f.inicio) {
+        int tamanhoNivel = tamanhoFila(&f);
+
+        for (int n = 0; n < tamanhoNivel; n++) {
+            int v = sairFila(&f);
+            No *p =g->vertices[v].inicio;
+            while(p) {
+                if (g->vertices[p->adj].flag == 0) {
+                    g->vertices[p->adj].flag = 1;
+
+                    if (g->vertices[p->adj].tipo == tipoSala) {
+                        No * novo = (No *) malloc(sizeof(No));
+                        novo->adj = p->adj;
+                        novo->prox = resultado;
+                        resultado = novo;
+                    } else {
+                        entrarFila(&f, p->adj);
+                    }
+                } 
+                p = p->prox;
+            }
+            g->vertices[v].flag = 2;
+        }
+        
+        if (resultado) {
+            return resultado;
+        }
+    }
+
+    return NULL;
+}
