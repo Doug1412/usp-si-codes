@@ -156,7 +156,7 @@ GrafoL * exercicio07(GrafoL *g, int c){
 
 // 8. Sejam dois grafos g1 e g2 contendo exatamente os mesmos vértices. Verifique se g2 é um subgrafo de g1, retornando true/false conforme o caso. Para tornar o problema mais interessante, considere que um grafo é representado em listas e outro em matriz.
 
-bool exercicio08(GrafoM * g1, GrafoL *g2) {
+bool exercicio08(GrafoM *g1, GrafoL *g2) {
     //verificar se todas as arestas de g2 estão presentes em g1;
     for (int i = 0; i < g2->quantVertices; i++) {
         No *p = g2->vertices[i].inicio;
@@ -259,19 +259,245 @@ int exercicio11(GrafoL *g) {
         g->vertices[i].dist = 0; // dist = quantidade de paises diferentes
     }
 
-    int resp = -1;
+    int maiorChamadas;
+
     for (int i = 0; i < g->quantVertices; i++) {
         No *p = g->vertices[i].inicio;
         while(p) {
-            if (g->vertices[i].tipo != g->vertices[p->adj].tipo) { // tipo = pais
-                g->vertices[i].dist++;
-                if (g->vertices[i].dist > resp) {
-                    resp = i;
+            int paisDestino = g->vertices[i].tipo; // tipo = id do pais
+            
+            bool jaVisto = false;
+
+            No *aux = g->vertices[i].inicio;
+            while (aux != p) {
+                if (g->vertices[aux->adj].tipo != paisDestino) {
+                    jaVisto = true;
+                    break;
                 }
+                aux = aux->prox;
+            }
+
+            if (!jaVisto) {
+                g->vertices[i].dist++; // Considerar dist = quantidade de paises diferentes
             }
             p = p->prox;
         }
+        if (g->vertices[i].dist > g->vertices[maiorChamadas].dist) {
+            maiorChamadas = i;
+        }
+    }
+    return maiorChamadas;
+}
+
+// 12. Seja um grafo g não-dirigido. Escreva uma função para detectar se há algum ciclo em g, retornando true/false.
+bool exercicio12(GrafoL *g){
+    zerarFlagsLista(g);
+
+    for (int i = 0; i < g->quantVertices; i++) {
+        if (g->vertices[i].flag == 0) {
+            if (!dfsE12(g, i, -1)) {
+                return true;
+            }
+        }
     }
 
+    return false;
+}
+
+bool dfsE12(GrafoL *g, int i, int pai) {
+    g->vertices[i].flag = 1;
+
+    No *p = g->vertices[i].inicio;
+    while(p) {
+        if (g->vertices[p->adj].flag == 1 && p->adj != pai) {
+            return true;
+        }
+
+        if (g->vertices[p->adj].flag == 0) {
+            if (dfsE12(g, p->adj, i)) {
+                return true;
+            }
+        }
+        p = p->prox;
+    }
+    
+    g->vertices[i].flag = 2;
+
+    return false;
+}
+
+// 13. Variação 1: remover a aresta que provoca um ciclo (ou aresta para trás, que fecha o ciclo).
+void exercicio13(GrafoL *g){
+    zerarFlagsLista(g);
+
+    for (int i = 0; i < g->quantVertices; i++) {
+        if (g->vertices[i].flag == 0) {
+            dfsE13(g, i, -1);
+        }
+    }
+
+    return;
+}
+
+void dfsE13(GrafoL *g, int i, int pai) {
+    g->vertices[i].flag = 1;
+
+    No *ant = NULL;
+    No *p = g->vertices[i].inicio;
+    while(p) {
+        if (g->vertices[p->adj].flag == 1 && p->adj != pai) {
+            No *remover = p;
+
+            int vizinho = p->adj;
+
+            if (ant == NULL) {
+                g->vertices[i].inicio = p->prox;
+            } else {
+                ant->prox = p->prox;
+            }
+            
+            p = p->prox;
+            free(remover);
+
+            ex13removerVolta(g, vizinho, i);
+
+            continue;
+        }
+
+        if (g->vertices[p->adj].flag == 0) {
+            dfsE12(g, p->adj, i);
+        }
+        ant = p;
+        p = p->prox;
+    }
+    
+    g->vertices[i].flag = 2;
+
+    return;
+}
+
+void ex13removerVolta(GrafoL *g, int origem, int destino) {
+    No *ant = NULL;
+    No *p = g->vertices[origem].inicio;
+    while (p) {
+        if (p->adj == destino) {
+            if (ant == NULL) {
+                g->vertices[origem].inicio = p->prox;
+            } else {
+                ant->prox = p->prox;
+            }
+            free(p);
+            return;
+        }
+
+        ant = p;
+        p = p->prox;
+    }
+}
+
+// 14. Seja um grafo g não-conexo e não-dirigido. Escreva uma função para contar a quantidade de grupos disjuntos de vértices mutuamente alcançáveis em g.
+
+// 16. Seja um grafo g e dois vértices a e b. Verifique se há um caminho qualquer entre a e b retornando true/false conforme o caso.
+// zerarFlagsLista(g);
+bool exercicio16(GrafoL *g, int a, int b) {
+    if (a == b) {
+        return true;
+    }
+
+    g->vertices[a].flag = 1;
+    No *p = g->vertices[a].inicio;
+    while(p) {
+        if (g->vertices[p->adj].flag == 0) {
+            if (exercicio16(g, p->adj, b)) {
+                return true;
+            }
+        }
+        p = p->prox;
+    }
+    g->vertices[a].flag = 2;
+    return false;
+}
+
+// 17. Variação 1: contar quantos vértices há no caminho de a até b.
+int exercicio17(GrafoL *g, int a, int b) {
+    zerarFlagsLista(g);
+    for(int i = 0; i < g->quantVertices; i++){
+        g->vertices[i].dist = 999999;
+    }
+    g->vertices[a].dist = 0;
+
+    if (ex17dfs(g, a, b)) {
+        return g->vertices[b].dist + 1;
+    }
+
+    return 0;
+}
+
+bool ex17dfs(GrafoL *g, int a, int b) {
+    if (a == b) {
+        return true;
+    }
+
+    g->vertices[a].flag = 1;
+    No *p = g->vertices[a].inicio;    
+    while(p) {
+        if (g->vertices[p->adj].flag == 0) {
+            g->vertices[p->adj].dist = g->vertices[a].dist + 1;
+            if (ex17dfs(g, p->adj, b)) {
+                return true;
+            }
+        }
+        p = p->prox;
+    }
+    g->vertices[a].flag = 2;
+    return false;
+}
+
+// 18. Variação 2: retornar a lista dos vértices que compõe o caminho de a até b.
+int * exercicio18(GrafoL *g, int a, int b) {
+    zerarFlagsLista(g);
+    
+    for(int i = 0; i < g->quantVertices; i++){
+        g->vertices[i].tipo = -1;
+    }
+    g->vertices[a].tipo = -1;
+
+    int * resp = NULL;
+
+    if(ex18dfs(g, a, b)) {
+        int rastreador = b;
+        int tamanho = 1;
+        while (rastreador != a) {
+            rastreador = g->vertices[rastreador].tipo;
+            tamanho++;
+        }
+
+        resp = (int *) malloc(tamanho * sizeof(int));
+        rastreador = b;
+        for (int i = (tamanho-1); i >= 0; i--) {
+            resp[i] = rastreador;
+            rastreador = g->vertices[rastreador].tipo;
+        }
+    }
     return resp;
+}
+
+bool ex18dfs(GrafoL *g, int a, int b) {
+    if (a == b) {
+        return true;
+    }
+
+    g->vertices[a].flag = 1;
+    No *p = g->vertices[a].inicio;
+    while(p) {
+        if (g->vertices[p->adj].flag == 0) {
+            g->vertices[p->adj].tipo = a; // considerar tipo = via
+            if (ex18dfs(g, p->adj, b)) {
+                return true;
+            }
+        }
+        p = p->prox;
+    }
+    g->vertices[a].flag = 2;
+    return false;
 }
