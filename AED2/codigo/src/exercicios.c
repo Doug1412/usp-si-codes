@@ -654,3 +654,149 @@ No * exercicio22(GrafoL *g, int i, int tipoSala) {
 
     return NULL;
 }
+
+// 23. Para todos os vértices de um grafo, calcular o tamanho do caminho mais curto a partir de um vértice inicial i.
+int exercicio23(GrafoL *g, int i) {
+    zerarFlagsLista(g);
+
+    for (int k = 0; k < g->quantVertices; k++) {
+        g->vertices[k].dist = -1;
+    }
+    g->vertices[i].dist = 0;
+
+    Fila f;
+    inicializarFila(&f);
+
+    entrarFila(&f, i);
+    g->vertices[i].flag = 1;
+    
+    while(f.inicio) {
+        int v = sairFila(&f);
+        No *p = g->vertices[v].inicio;
+        while(p) {
+            if (g->vertices[p->adj].flag == 0) {
+                g->vertices[p->adj].flag = 1;
+                g->vertices[p->adj].dist = g->vertices[v].dist + 1;
+                entrarFila(&f, p->adj);
+            }
+            p = p->prox;
+        } 
+        g->vertices[v].flag = 2;
+    }
+}
+
+// 24. Seja um grafo não-dirigido representando uma rede social. Os vértices são os usuários e as arestas indicam relações (e.g., de amizade) entre pares de usuários. Dado um usuário i, escreva um algoritmo para exibir todos os usuários relacionados a i com até d graus de distância (medida em quantidade de arestas). Os amigos imediatos estão no grau 1, os amigos dos amigos no grau 2, e assim por diante.
+void exercicio24(GrafoL *g, int i, int d) {
+    zerarFlagsLista(g);
+
+    Fila f;
+    inicializarFila(&f);
+
+    entrarFila(&f, i);
+    g->vertices[i].flag = 1;
+
+    int grau = 0;
+
+    while(f.inicio) {
+        if (grau = d) {
+            break;
+        }
+        
+        int tamanhoGrau = tamanhoFila(&f);
+        grau++;
+
+        for(int k = 0; k < tamanhoGrau; k++) {
+            int v = sairFila(&f);
+            No *p = g->vertices[v].inicio;
+            while(p) {
+                if (g->vertices[p->adj].flag == 0) {
+                    printf("Amigo %d de grau %d", p->adj, grau);
+                    g->vertices[p->adj].flag = 1;
+                    entrarFila(&f, p->adj);
+                }
+                p = p->prox;
+            }
+            g->vertices[v].flag = 2;
+        }
+    }
+}
+
+// 25. Seja um grafo dirigido representando trocas de email entre usuários. Os vértices são usuários e as arestas orientadas indicam que houve envio de mensagens na respectiva direção, incluindo um contador do número de mensagens enviadas. Escreva um algoritmo que, dado um usuário atual i, retorne uma lista ligada contendo todos os usuários que estão diretamente relacionados com i, e que enviaram ou receberam pelo menos k mensagens de/para i. A constante k é fornecida como parâmetro de entrada para a função
+No *exercicio25(GrafoL *g, int i, int k) {
+    No *resp = NULL;
+
+    for(int j = 0; j < g->quantVertices; j++) {
+        No * p = g->vertices[j].inicio;
+        while(p) {
+            if (p->adj == i || j == i) {
+                if (p->peso >= k) { // considerar peso = quantidade de mensagens enviadas
+                    No * novo = (No *) malloc(sizeof(No));
+                    novo->adj = j == i? p->adj: i;
+                    novo->prox = resp;
+                    resp = novo;
+                }
+            }
+            p = p->prox;
+        }
+    }
+
+    return resp;
+}
+
+// 26. Seja um grafo representando uma malha aérea. Vértices são cidades e arestas são voos. Escreva um algoritmo que, dada uma cidade origem a, um destino b e uma companhia aérea c, encontre o trajeto com menor número de conexões de a até b voando apenas pela companhia c. A resposta deve ser fornecida na forma de uma lista ligada de vértices de a até b 
+
+No *exercicio26(GrafoL *g, int a, int b, int c) {
+    zerarFlagsLista(g);
+
+    Fila f;
+    inicializarFila(&f);
+
+    entrarFila(&f, a);
+    g->vertices[a].flag = 1;
+
+    for (int i = 0; i < g->quantVertices; i++) {
+        g->vertices[i].tipo = -1;
+    }
+
+    bool destinoEncontrado = false;
+
+    while(f.inicio) {
+        int v = sairFila(&f);
+
+        if (v == b) {
+            destinoEncontrado = true;
+            break;
+        }
+
+        No *p = g->vertices[v].inicio;
+        while(p) {
+            if (g->vertices[p->adj].flag == 0 && p->tipo == c) { // considerar tipo = companhia aerea
+                g->vertices[p->adj].flag = 1;
+                g->vertices[p->adj].tipo = v;
+                entrarFila(&f, p->adj);
+            }
+            p = p->prox;
+        }
+
+        g->vertices[v].flag = 2;
+    }
+
+    No *resp = NULL;
+
+    if (destinoEncontrado) {
+        int rastreador = b;
+        while(rastreador != -1) {
+            No *novo = (No *) malloc(sizeof(No));
+            novo->adj = rastreador;
+            novo->prox = resp;
+            resp = novo;
+
+            rastreador = g->vertices[rastreador].tipo;
+        }
+    }
+
+    while(f.inicio) sairFila(&f);
+
+    return resp;
+}
+
