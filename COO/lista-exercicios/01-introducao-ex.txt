@@ -1,0 +1,16 @@
+Respostas:
+
+1. Uma Classe é como se fosse um molde , já o objeto é a "coisa" formado por esse molde. Por exemplo, imaginando o mundo automotivo, uma classe seria o conceito do que é um carro, já o objeto seria um carro em especifico, como HB20, Corola e etc.
+
+2. Declarar o saldo como `public` nesse caso é um grande erro, já que isso leva permite o valor ser alterado diretamente ignorando qualquer procedimento, por exemplo, o desenvolvedor poderia fazer o saldo ficar com o valor negativo o que não faria o menor sentido, além de que ao não usar os métodos correspondes para realizar ações na variável saldo ele pode quebrar a logica de funcionamento da classe.
+
+3. Será impresso o valor 20, já que a variável s2 nada mais é que a variável s1 com outro nome, pois ela apontada para o mesmo lugar.
+
+4. Somente uma, já que pela definição de um atributo static ele é igual para todas as instancias da classe Silksong.
+
+5.
+Pela propria classe que o declarou: Sim
+Por uma classe localizada em outro pacote: Não
+Pelo metodo main de uma classe externa: Não
+
+6. O Garbage Collector identifica automaticamente que não tem mais nada apontando para ele e o libera da memória.
