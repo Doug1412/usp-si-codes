@@ -1,0 +1,25 @@
+Respostas:
+
+1. 
+public class ProdutoImportado extends Produto {
+    private double taxa;
+
+    public void setPreco(double preco) {
+        super.setPreco(preco + this.taxa);
+    }
+}
+
+2.
+public class FiltroPrecoAlto implements Criterio {
+    public boolean seleciona(Produto p) {
+        return p.getPreco() > 1000;
+    }
+}
+
+
+3. A versão executa será a da classe livro, isso é possivel por causa do polimorfismo, por mais que a variavel seja do tipo produto, o objeto instanciado ali é um Livro que é filho da classe Produto.
+
+4.Ao tentar executar new Produto(), o codigo não irá compilar e o java ira exibir um erro. 
+Uma subclasse é obrigada a implementar o metodo abstract para que o codigo compile
+
+5. Podemos chamar o metodo equals porque ele foi implementado na classe Object, na qual a classe Venda é filha por definição

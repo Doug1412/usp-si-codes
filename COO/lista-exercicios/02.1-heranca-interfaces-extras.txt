@@ -1,0 +1,7 @@
+Respostas:
+
+1. Para manter o encapsulamento da classe, garantindo que se em algum momento algum momento o codigo da classe mudar os codigos feitos com base nela n quebrem e também garantir que caso exista algum processo que é executado sempre que esse valor for acessado ou alterado ele seja feito sem depender de alguem externo conhecer ele.
+
+2. 
+
+3.
