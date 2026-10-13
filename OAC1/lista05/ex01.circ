@@ -58,12 +58,37 @@
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="6" loc="(130,320)" name="Button"/>
-    <comp lib="6" loc="(310,280)" name="LED"/>
-    <comp loc="(280,320)" name="timer5"/>
-    <comp loc="(450,320)" name="timer8"/>
-    <comp loc="(630,320)" name="timer4"/>
-    <wire from="(130,320)" to="(160,320)"/>
+    <comp lib="6" loc="(130,260)" name="Button"/>
+    <comp lib="6" loc="(280,230)" name="LED">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp lib="6" loc="(450,250)" name="LED">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp lib="6" loc="(620,270)" name="LED">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp lib="9" loc="(275,200)" name="Text">
+      <a name="text" val="Entrada"/>
+    </comp>
+    <comp lib="9" loc="(453,224)" name="Text">
+      <a name="text" val="Região Central"/>
+    </comp>
+    <comp lib="9" loc="(617,243)" name="Text">
+      <a name="text" val="Saida"/>
+    </comp>
+    <comp loc="(270,260)" name="timer5"/>
+    <comp loc="(440,280)" name="timer8"/>
+    <comp loc="(610,300)" name="timer4"/>
+    <wire from="(130,260)" to="(150,260)"/>
+    <wire from="(270,260)" to="(280,260)"/>
+    <wire from="(270,280)" to="(320,280)"/>
+    <wire from="(280,230)" to="(280,260)"/>
+    <wire from="(440,280)" to="(450,280)"/>
+    <wire from="(440,300)" to="(490,300)"/>
+    <wire from="(450,250)" to="(450,280)"/>
+    <wire from="(610,300)" to="(620,300)"/>
+    <wire from="(620,270)" to="(620,300)"/>
   </circuit>
   <circuit name="timer5">
     <a name="appearance" val="custom"/>
@@ -75,11 +100,14 @@
       <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64">I</text>
       <rect height="3" stroke="none" width="10" x="160" y="59"/>
       <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="end" x="155" y="64">O</text>
-      <rect height="20" stroke="none" width="100" x="60" y="70"/>
-      <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
-      <text dominant-baseline="alphabetic" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="111" y="86">timer5</text>
+      <rect height="20" stroke="none" width="100" x="60" y="90"/>
+      <rect fill="none" height="60" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
+      <text dominant-baseline="alphabetic" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="111" y="106">timer5</text>
+      <rect height="3" stroke="none" width="10" x="160" y="79"/>
+      <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="end" x="155" y="84">DONE</text>
       <circ-anchor facing="east" x="170" y="60"/>
       <circ-port dir="in" pin="120,180" x="50" y="60"/>
+      <circ-port dir="out" pin="190,280" x="170" y="80"/>
       <circ-port dir="out" pin="240,200" x="170" y="60"/>
     </appear>
     <comp lib="0" loc="(120,180)" name="Pin">
@@ -90,8 +118,11 @@
       <a name="facing" val="east"/>
       <a name="label" val="is_5"/>
     </comp>
-    <comp lib="0" loc="(220,430)" name="Clock">
+    <comp lib="0" loc="(190,280)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="done"/>
+      <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(240,200)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -103,15 +134,15 @@
       <a name="label" val="reset"/>
     </comp>
     <comp lib="0" loc="(290,330)" name="Constant"/>
+    <comp lib="0" loc="(290,420)" name="Clock">
+      <a name="appearance" val="NewPins"/>
+    </comp>
     <comp lib="0" loc="(330,480)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="reset"/>
     </comp>
     <comp lib="0" loc="(700,290)" name="Tunnel">
       <a name="label" val="is_5"/>
-    </comp>
-    <comp lib="1" loc="(270,420)" name="AND Gate">
-      <a name="size" val="30"/>
     </comp>
     <comp lib="1" loc="(280,240)" name="NOT Gate"/>
     <comp lib="1" loc="(530,300)" name="AND Gate">
@@ -136,16 +167,14 @@
     <wire from="(150,280)" to="(160,280)"/>
     <wire from="(160,180)" to="(160,190)"/>
     <wire from="(160,250)" to="(160,280)"/>
+    <wire from="(160,280)" to="(190,280)"/>
     <wire from="(190,200)" to="(220,200)"/>
     <wire from="(220,200)" to="(220,240)"/>
     <wire from="(220,200)" to="(240,200)"/>
-    <wire from="(220,240)" to="(220,410)"/>
     <wire from="(220,240)" to="(250,240)"/>
-    <wire from="(220,410)" to="(240,410)"/>
-    <wire from="(220,430)" to="(240,430)"/>
-    <wire from="(270,420)" to="(320,420)"/>
     <wire from="(280,240)" to="(290,240)"/>
     <wire from="(290,330)" to="(310,330)"/>
+    <wire from="(290,420)" to="(320,420)"/>
     <wire from="(310,330)" to="(310,350)"/>
     <wire from="(310,330)" to="(320,330)"/>
     <wire from="(310,350)" to="(320,350)"/>
@@ -187,23 +216,29 @@
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <appear>
-      <rect height="20" stroke="none" width="100" x="60" y="70"/>
+      <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="end" x="155" y="84">DONE</text>
+      <rect height="20" stroke="none" width="100" x="60" y="90"/>
+      <rect height="3" stroke="none" width="10" x="160" y="79"/>
       <rect height="3" stroke="none" width="10" x="50" y="59"/>
+      <rect fill="none" height="60" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
+      <text dominant-baseline="alphabetic" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="111" y="106">timer8</text>
       <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64">I</text>
-      <text dominant-baseline="alphabetic" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="111" y="86">timer8</text>
       <rect height="3" stroke="none" width="10" x="160" y="59"/>
       <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="end" x="155" y="64">O</text>
-      <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
       <circ-anchor facing="east" x="170" y="60"/>
       <circ-port dir="in" pin="80,80" x="50" y="60"/>
+      <circ-port dir="out" pin="150,180" x="170" y="80"/>
       <circ-port dir="out" pin="200,100" x="170" y="60"/>
     </appear>
     <comp lib="0" loc="(110,180)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="is_8"/>
     </comp>
-    <comp lib="0" loc="(180,330)" name="Clock">
+    <comp lib="0" loc="(150,180)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="done"/>
+      <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(200,100)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -215,26 +250,25 @@
       <a name="label" val="reset"/>
     </comp>
     <comp lib="0" loc="(250,230)" name="Constant"/>
+    <comp lib="0" loc="(250,320)" name="Clock">
+      <a name="appearance" val="NewPins"/>
+    </comp>
     <comp lib="0" loc="(290,380)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="reset"/>
     </comp>
-    <comp lib="0" loc="(660,160)" name="Tunnel">
+    <comp lib="0" loc="(740,200)" name="Tunnel">
       <a name="label" val="is_8"/>
     </comp>
     <comp lib="0" loc="(80,80)" name="Pin">
       <a name="appearance" val="NewPins"/>
       <a name="label" val="I"/>
     </comp>
-    <comp lib="1" loc="(230,320)" name="AND Gate">
-      <a name="size" val="30"/>
-    </comp>
     <comp lib="1" loc="(240,140)" name="NOT Gate"/>
     <comp lib="1" loc="(490,200)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
-    <comp lib="1" loc="(640,160)" name="AND Gate">
-      <a name="inputs" val="3"/>
+    <comp lib="1" loc="(640,200)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
     <comp lib="5" loc="(100,90)" name="J-K Flip-Flop">
@@ -249,19 +283,20 @@
     <comp lib="5" loc="(520,220)" name="J-K Flip-Flop">
       <a name="appearance" val="logisim_evolution"/>
     </comp>
+    <comp lib="5" loc="(670,220)" name="J-K Flip-Flop">
+      <a name="appearance" val="logisim_evolution"/>
+    </comp>
     <wire from="(110,180)" to="(120,180)"/>
     <wire from="(120,150)" to="(120,180)"/>
+    <wire from="(120,180)" to="(150,180)"/>
     <wire from="(120,80)" to="(120,90)"/>
     <wire from="(150,100)" to="(180,100)"/>
     <wire from="(180,100)" to="(180,140)"/>
     <wire from="(180,100)" to="(200,100)"/>
-    <wire from="(180,140)" to="(180,310)"/>
     <wire from="(180,140)" to="(210,140)"/>
-    <wire from="(180,310)" to="(200,310)"/>
-    <wire from="(180,330)" to="(200,330)"/>
-    <wire from="(230,320)" to="(280,320)"/>
     <wire from="(240,140)" to="(250,140)"/>
     <wire from="(250,230)" to="(270,230)"/>
+    <wire from="(250,320)" to="(280,320)"/>
     <wire from="(270,230)" to="(270,250)"/>
     <wire from="(270,230)" to="(280,230)"/>
     <wire from="(270,250)" to="(280,250)"/>
@@ -270,10 +305,7 @@
     <wire from="(290,380)" to="(310,380)"/>
     <wire from="(310,280)" to="(310,380)"/>
     <wire from="(310,380)" to="(420,380)"/>
-    <wire from="(340,230)" to="(350,230)"/>
-    <wire from="(350,150)" to="(350,230)"/>
-    <wire from="(350,150)" to="(610,150)"/>
-    <wire from="(350,230)" to="(380,230)"/>
+    <wire from="(340,230)" to="(380,230)"/>
     <wire from="(380,190)" to="(380,230)"/>
     <wire from="(380,190)" to="(460,190)"/>
     <wire from="(380,230)" to="(380,250)"/>
@@ -283,21 +315,31 @@
     <wire from="(390,320)" to="(510,320)"/>
     <wire from="(420,280)" to="(420,380)"/>
     <wire from="(420,380)" to="(540,380)"/>
-    <wire from="(450,160)" to="(450,210)"/>
-    <wire from="(450,160)" to="(610,160)"/>
     <wire from="(450,210)" to="(450,230)"/>
     <wire from="(450,210)" to="(460,210)"/>
     <wire from="(490,200)" to="(500,200)"/>
+    <wire from="(500,190)" to="(500,200)"/>
+    <wire from="(500,190)" to="(610,190)"/>
     <wire from="(500,200)" to="(500,230)"/>
     <wire from="(500,230)" to="(500,250)"/>
     <wire from="(500,230)" to="(510,230)"/>
     <wire from="(500,250)" to="(510,250)"/>
     <wire from="(510,270)" to="(510,320)"/>
+    <wire from="(510,320)" to="(660,320)"/>
     <wire from="(540,280)" to="(540,380)"/>
-    <wire from="(570,230)" to="(590,230)"/>
-    <wire from="(590,170)" to="(590,230)"/>
-    <wire from="(590,170)" to="(610,170)"/>
-    <wire from="(640,160)" to="(660,160)"/>
+    <wire from="(540,380)" to="(690,380)"/>
+    <wire from="(570,230)" to="(580,230)"/>
+    <wire from="(580,210)" to="(580,230)"/>
+    <wire from="(580,210)" to="(610,210)"/>
+    <wire from="(640,200)" to="(650,200)"/>
+    <wire from="(650,200)" to="(650,230)"/>
+    <wire from="(650,230)" to="(650,250)"/>
+    <wire from="(650,230)" to="(660,230)"/>
+    <wire from="(650,250)" to="(660,250)"/>
+    <wire from="(660,270)" to="(660,320)"/>
+    <wire from="(690,280)" to="(690,380)"/>
+    <wire from="(720,200)" to="(720,230)"/>
+    <wire from="(720,200)" to="(740,200)"/>
     <wire from="(80,80)" to="(120,80)"/>
   </circuit>
   <circuit name="timer4">
@@ -306,23 +348,29 @@
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <appear>
-      <rect height="20" stroke="none" width="100" x="60" y="70"/>
+      <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="end" x="155" y="84">DONE</text>
+      <rect height="20" stroke="none" width="100" x="60" y="90"/>
+      <rect height="3" stroke="none" width="10" x="160" y="79"/>
       <rect height="3" stroke="none" width="10" x="50" y="59"/>
+      <rect fill="none" height="60" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
+      <text dominant-baseline="alphabetic" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="111" y="106">timer4</text>
       <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="start" x="65" y="64">I</text>
-      <text dominant-baseline="alphabetic" fill="#ffffff" font-family="Dialog" font-size="14" font-weight="bold" text-anchor="middle" x="111" y="86">timer4</text>
       <rect height="3" stroke="none" width="10" x="160" y="59"/>
       <text dominant-baseline="alphabetic" font-family="Dialog" font-size="12" text-anchor="end" x="155" y="64">O</text>
-      <rect fill="none" height="40" stroke="#000000" stroke-width="2" width="100" x="60" y="50"/>
       <circ-anchor facing="east" x="170" y="60"/>
       <circ-port dir="in" pin="80,270" x="50" y="60"/>
+      <circ-port dir="out" pin="150,370" x="170" y="80"/>
       <circ-port dir="out" pin="200,290" x="170" y="60"/>
     </appear>
     <comp lib="0" loc="(110,370)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="is_4"/>
     </comp>
-    <comp lib="0" loc="(180,520)" name="Clock">
+    <comp lib="0" loc="(150,370)" name="Pin">
       <a name="appearance" val="NewPins"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="done"/>
+      <a name="type" val="output"/>
     </comp>
     <comp lib="0" loc="(200,290)" name="Pin">
       <a name="appearance" val="NewPins"/>
@@ -334,6 +382,9 @@
       <a name="label" val="reset"/>
     </comp>
     <comp lib="0" loc="(250,420)" name="Constant"/>
+    <comp lib="0" loc="(250,510)" name="Clock">
+      <a name="appearance" val="NewPins"/>
+    </comp>
     <comp lib="0" loc="(290,570)" name="Tunnel">
       <a name="facing" val="east"/>
       <a name="label" val="reset"/>
@@ -346,9 +397,6 @@
       <a name="label" val="I"/>
     </comp>
     <comp lib="1" loc="(230,340)" name="NOT Gate"/>
-    <comp lib="1" loc="(230,510)" name="AND Gate">
-      <a name="size" val="30"/>
-    </comp>
     <comp lib="1" loc="(490,390)" name="AND Gate">
       <a name="size" val="30"/>
     </comp>
@@ -367,16 +415,14 @@
     <wire from="(110,370)" to="(120,370)"/>
     <wire from="(120,270)" to="(120,280)"/>
     <wire from="(120,340)" to="(120,370)"/>
+    <wire from="(120,370)" to="(150,370)"/>
     <wire from="(150,290)" to="(180,290)"/>
     <wire from="(180,290)" to="(180,340)"/>
     <wire from="(180,290)" to="(200,290)"/>
-    <wire from="(180,340)" to="(180,500)"/>
     <wire from="(180,340)" to="(200,340)"/>
-    <wire from="(180,500)" to="(200,500)"/>
-    <wire from="(180,520)" to="(200,520)"/>
     <wire from="(230,340)" to="(240,340)"/>
-    <wire from="(230,510)" to="(280,510)"/>
     <wire from="(250,420)" to="(270,420)"/>
+    <wire from="(250,510)" to="(280,510)"/>
     <wire from="(270,420)" to="(270,440)"/>
     <wire from="(270,420)" to="(280,420)"/>
     <wire from="(270,440)" to="(280,440)"/>
